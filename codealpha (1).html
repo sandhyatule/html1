@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Online HTML Editor</title>
+    <style>
+        body {
+  margin: 0;
+  padding: 0;
+}
+
+.editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #333;
+  color: #fff;
+}
+
+textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1.2rem;
+  padding: 1rem;
+}
+
+iframe {
+  flex: 1;
+  border: none;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="editor-container">
+      <div class="toolbar">
+        <button id="save-btn">Save</button>
+        <button id="preview-btn">Output</button>
+      </div>
+      <textarea id="html-editor" placeholder="type your code here...."></textarea>
+      <iframe id="preview"></iframe>
+    </div>
+    <script>const htmlEditor = document.getElementById('html-editor');
+        const preview = document.getElementById('preview');
+        const saveBtn = document.getElementById('save-btn');
+        const previewBtn = document.getElementById('preview-btn');
+        
+        // Save the code to local storage
+        function saveCode() {
+          localStorage.setItem('code', htmlEditor.value);
+        }
+        
+        // Load the code from local storage
+        function loadCode() {
+          const code = localStorage.getItem('code');
+          if (code) {
+            htmlEditor.value = code;
+          }
+        }
+        
+        // Preview the code in the iframe
+        function previewCode() {
+          preview.contentDocument.body.innerHTML = htmlEditor.value;
+        }
+        
+        // Attach event listeners to the buttons
+        saveBtn.addEventListener('click', saveCode);
+        previewBtn.addEventListener('click', previewCode);
+        
+        // Load the code when the page loads
+        loadCode();
+        </script>
+  </body>
+</html>
